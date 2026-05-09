@@ -1,18 +1,16 @@
 import streamlit as st
-from src.db import conn, cursor
-import pandas as pd
+from src.db import conn
 
 def show():
-    st.title("💰 Budget Tracker")
+    st.title("💰 Budget Planner")
 
-    category = st.text_input("Category")
-    amount = st.number_input("Budget Amount", min_value=0.0)
+    # ✅ create cursor
+    cursor = conn.cursor()
 
-    if st.button("Set Budget"):
-        cursor.execute("INSERT INTO budgets VALUES (?, ?)", (category, amount))
+    budget = st.number_input("Set Monthly Budget", min_value=0.0)
+
+    if st.button("Save Budget"):
+        cursor.execute("INSERT INTO budget (amount) VALUES (?)", (budget,))
         conn.commit()
-        st.success("Budget Saved!")
 
-    # Show budgets
-    df = pd.read_sql_query("SELECT * FROM budgets", conn)
-    st.write(df)
+        st.success("✅ Budget saved!")

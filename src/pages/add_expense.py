@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime
-from src.db import conn     
+from src.db import conn       
 from src.utils import auto_category
 
 def show():
