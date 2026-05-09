@@ -1,23 +1,22 @@
 import sqlite3
+import os
 
-conn = sqlite3.connect("database/expenses.db", check_same_thread=False)
-cursor = conn.cursor()
+# Ensure DB file is created in current directory
+DB_PATH = os.path.join(os.getcwd(), "expenses.db")
+
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+
 
 def create_tables():
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS expenses (
-        date TEXT,
-        category TEXT,
-        amount REAL,
-        payment_method TEXT,
-        description TEXT
-    )
-    """)
+    cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS budgets (
+    CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        amount REAL,
         category TEXT,
-        amount REAL
+        payment_method TEXT,
+        date TEXT
     )
     """)
 

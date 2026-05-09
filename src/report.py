@@ -1,5 +1,8 @@
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
+import os
+
+os.makedirs("reports", exist_ok=True)
 
 def generate_pdf(total, top_category):
     doc = SimpleDocTemplate("reports/report.pdf")
