@@ -48,7 +48,7 @@ expense-tracker/
 ### 1. Clone Repository
 
 ```
-git clone https://github.com/your-username/expense-tracker.git
+git clone https://github.com/dhananjaybhaskar06-glitch/expense-tracker/tree/main
 cd expense-tracker
 ```
 
