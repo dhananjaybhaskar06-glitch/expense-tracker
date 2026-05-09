@@ -1,10 +1,13 @@
 import streamlit as st
 from datetime import datetime
-from src.db import conn, cursor
+from src.db import conn     
 from src.utils import auto_category
 
 def show():
     st.title("➕ Add Expense")
+
+    # ✅ FIX: create cursor
+    cursor = conn.cursor()
 
     date = st.date_input("Date", datetime.today())
     desc = st.text_input("Description")
@@ -14,8 +17,10 @@ def show():
     if st.button("Add Expense"):
         category = auto_category(desc)
 
-        cursor.execute("INSERT INTO expenses VALUES (?, ?, ?, ?, ?)",
-                       (str(date), category, amount, payment, desc))
+        cursor.execute(
+            "INSERT INTO expenses (date, category, amount, payment_method, description) VALUES (?, ?, ?, ?, ?)",
+            (str(date), category, amount, payment, desc)
+        )
         conn.commit()
 
-        st.success(f"Added under {category}")
+        st.success(f"✅ Added under {category}")
